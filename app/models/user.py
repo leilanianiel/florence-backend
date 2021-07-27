@@ -10,13 +10,13 @@ class User(db.Model):
     username = db.Column(db.String(30), unique = True, autoincrement=True)
     item = db.relationship("Item", back_populates="user")
 
-    def __init__(self,username,id, item):
-        self.username = username
-        self.id = id
-        self.item = item
+    # def __init__(self,username,id, item):
+    #     self.username = username
+    #     self.id = id
+    #     self.item = item
 
-    def __rep__(self):
-        return'<User %r>' % self.username
+    # def __rep__(self):
+    #     return'<User %r>' % self.username
 
 
 
