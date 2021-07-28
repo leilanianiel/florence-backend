@@ -2,14 +2,19 @@ from app import db
 from datetime import timedelta, datetime
 import datetime 
 
-
+# create a tag table(one to make relationship, tag can have many items, an item can only have one tag)
+# item inventory 
+# inventory (ASK FOR CLARIFICATION)
+# 
 
 class Item(db.Model): 
-    item_id = db.Column(db.Integer, primary_key=True)
+    item_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String)
-    tag = db.Column(db.String)
-    total_inventory = db.Column(db.Integer, default=0)
+    item_inventory = db.Column(db.Integer, default=0)
+    # tag = db.Column(db.String)
+    # total_inventory = db.Column(db.Integer, default=0)
     expiration = db.Column(db.DateTime, default=(datetime.datetime.now()) + (datetime.timedelta(days=(7))))
+    fridge_id = db.Column(db.Integer, foreign_key=True, autoincrement=True)
 
     def helper_function(self):
         helper_function = 0

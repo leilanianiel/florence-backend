@@ -6,9 +6,9 @@ from datetime import timedelta, datetime
 
 
 class User(db.Model):
-    user_id = db.Column(db.Integer, primary_key = True)
-    username = db.Column(db.String(30), unique = True, autoincrement=True)
-    item = db.relationship("Item", back_populates="user")
+    user_id = db.Column(db.Integer, primary_key = True, autoincrement=True)
+    username = db.Column(db.String(30), unique = True)
+    # item = db.relationship("Item", back_populates="user")
 
     # def __init__(self,username,id, item):
     #     self.username = username
