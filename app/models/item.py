@@ -12,9 +12,10 @@ class Item(db.Model):
     name = db.Column(db.String)
     item_inventory = db.Column(db.Integer, default=0)
     # tag = db.Column(db.String)
-    # total_inventory = db.Column(db.Integer, default=0)
+    total_inventory = db.Column(db.Integer, default=0)
     expiration = db.Column(db.DateTime, default=(datetime.datetime.now()) + (datetime.timedelta(days=(7))))
     fridge_id = db.Column(db.Integer, foreign_key=True, autoincrement=True)
+    category_id = db.Column(db.Integer, db.ForeignKey('category.category_id'))
 
     def helper_function(self):
         helper_function = 0

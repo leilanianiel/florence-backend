@@ -7,8 +7,8 @@ from sqlalchemy.orm import relationship
 # conected to item table 
 class Category (db.Model):
     category_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    item_id = db.Column(db.Integer, db.ForeignKey('item.item_id'))
-    #
+    name = db.Column(db.String)
+    
     item = relationship("Item", back_populates="category")
     # video = relationship("Video", back_populates="rentals")
 
