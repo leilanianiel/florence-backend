@@ -9,12 +9,11 @@ db = SQLAlchemy()
 migrate = Migrate()
 load_dotenv()
 
-
 def create_app(test_config=None):
     app = Flask(__name__)
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.url_map.strict_slashes = False
-    
+
     if test_config is None:
         app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
             "SQLALCHEMY_DATABASE_URI")
@@ -26,16 +25,20 @@ def create_app(test_config=None):
     # Import models here for Alembic setup
     # from app.models.ExampleModel import ExampleModel
     from app.models.item import Item
-    from app.models.user import User
+    from app.models.category import Category
+    from app.models.fridge import Fridge
+    from app.models.customer import Customer
 
     db.init_app(app)
     migrate.init_app(app, db)
 
+    from .routes import fridge_bp
+
     # Register Blueprints here
-    # from .routes import example_bp
-    # app.register_blueprint(example_bp)
-    # from .routes import boards_bp
-    # app.register_blueprint(boards_bp) 
+    # app.register_blueprint(category_bp)
+    app.register_blueprint(fridge_bp)
+    # app.register_blueprint(item_bp)
+    # app.register_blueprint(user_bp)
 
     CORS(app)
     return app
