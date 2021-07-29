@@ -9,3 +9,9 @@ class Customer(db.Model):
     fridge_id = db.Column(db.Integer, db.ForeignKey('fridge.fridge_id'))
     fridge = db.relationship("Fridge", backref=backref("customer", uselist=False))
 
+    def json_object(self):
+        return {
+            "id": self.customer_id,
+            "user_name": self.user_name,
+            "fridge_id": self.fridge_id
+        }

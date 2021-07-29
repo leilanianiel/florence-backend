@@ -21,3 +21,5 @@ def customers_fridge():
                 fridge_response.append(i.to_json())
         return jsonify(fridge_response)
 
+
+
