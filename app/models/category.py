@@ -1,9 +1,22 @@
 from app import db
 from sqlalchemy.orm import relationship
-from app.models.customer import Customer
+from dataclasses import dataclass
 
-class Category (db.Model):
-    category_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+@dataclass
+class Category(db.Model):
+    id: int
+    name: str
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True, unique=True)
     name = db.Column(db.String)
-    
-    items = db.relationship("Item", backref="category")
+
+    item = db.relationship("Item", backref="Category")
+
+# @classmethod
+# def check_in(cls, category_id):
+
+#     # customer = Customer.query.get(customer_id)
+#     # video = Video.query.get(video_id)
+#     item = Item.query.filter(Item.category_id==category_id).all()
+
+#     return check_in()

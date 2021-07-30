@@ -9,6 +9,7 @@ db = SQLAlchemy()
 migrate = Migrate()
 load_dotenv()
 
+
 def create_app(test_config=None):
     app = Flask(__name__)
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -30,14 +31,15 @@ def create_app(test_config=None):
     from app.models.customer import Customer
 
     db.init_app(app)
-    migrate.init_app(app, db)
+    migrate.init_app(app, db, compare_type=True)
 
-    from .routes import fridge_bp
+    from .routes import fridge_bp, item_bp, category_bp
 
     # Register Blueprints here
     # app.register_blueprint(category_bp)
     app.register_blueprint(fridge_bp)
-    # app.register_blueprint(item_bp)
+    app.register_blueprint(item_bp)
+    app.register_blueprint(category_bp)
     # app.register_blueprint(user_bp)
 
     CORS(app)
