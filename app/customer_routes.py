@@ -10,7 +10,6 @@ from app.models.category import Category
 import datetime
 import json
 
-# example_bp = Blueprint('example_bp', __name__)
 customer_bp = Blueprint("customer", __name__, url_prefix="/customer")
 
 
