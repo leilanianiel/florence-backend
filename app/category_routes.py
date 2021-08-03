@@ -22,10 +22,11 @@ def category():
 
     if request.method == "POST":
         request_body = request.get_json()
-        if "name" not in request_body:
-            return (jsonify({"details": "Invalid data"}), 400)
+        if "name" not in request_body or "id" not in request_body:
+            return make_response(jsonify({"details": "Invalid data"}), 400)
 
-        category = Category(name=request_body["name"])
+        category = Category(name=request_body["name"], id=request_body["id"])
+
         db.session.add(category)
         db.session.commit()
         return jsonify(category), 201
@@ -59,4 +60,4 @@ def handle_category(id):
     return make_response({
         "Deleted": category.name,
         "id" : category.id
-}, 200)
+        }, 200)

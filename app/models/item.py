@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from app.models.fridge import Fridge
 from app.models.category import Category
 
-@dataclass
+@dataclass #These classes don’t contain any additional functionality and can’t independently operate on the data that they own.
 class Item(db.Model):
     id: int
     name: str

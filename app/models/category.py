@@ -10,13 +10,5 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True)
     name = db.Column(db.String)
 
-    item = db.relationship("Item", backref="Category")
-
-# @classmethod
-# def check_in(cls, category_id):
-
-#     # customer = Customer.query.get(customer_id)
-#     # video = Video.query.get(video_id)
-#     item = Item.query.filter(Item.category_id==category_id).all()
-
-#     return check_in()
+    item = db.relationship("Item", backref="Category", passive_deletes=True)
+    item_id = db.Column(db.Integer, db.ForeignKey('item.id', ondelete='CASCADE'))
