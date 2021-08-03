@@ -10,48 +10,6 @@ from app.models.category import Category
 import datetime
 import json
 
-
-# example_bp = Blueprint('example_bp', __name__)
-fridge_bp = Blueprint("fridge", __name__, url_prefix="/fridge")
-
-
-@fridge_bp.route("", methods=["GET"], strict_slashes=False)
-def customers_fridge():
-    if request.method == "GET":
-
-        fridge = Fridge.query.all()
-        fridge_response = []
-
-    for i in fridge:
-        fridge_response.append(i)
-    return jsonify(fridge_response)
-
-
-# example_bp = Blueprint('example_bp', __name__)
-category_bp = Blueprint("category", __name__, url_prefix="/category")
-
-
-@category_bp.route("", methods=["GET", 'POST'], strict_slashes=False)
-def category():
-    if request.method == "GET":
-        categories = Category.query.all()
-
-        return jsonify(categories), 200
-
-    if request.method == "POST":
-        request_body = request.get_json()
-        if "name" not in request_body:
-            return make_response(jsonify({"details": "Invalid data"}), 400)
-
-        category = Category(name=request_body["name"])
-
-        db.session.add(category)
-        db.session.commit()
-
-        return jsonify(category), 201
-
-
-# Video route for all inquiry GET & POST
 item_bp = Blueprint("item", __name__, url_prefix="/item")
 
 
@@ -78,7 +36,7 @@ def create_item():
         if category is None:
             return jsonify({"details": "Invalid data"}), 404
 
-        expiration: datetime 
+        expiration: datetime
         if 'expiration' not in request_body:
             expiration = datetime.datetime.now() + datetime.timedelta(days=7)
         else:

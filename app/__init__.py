@@ -33,11 +33,15 @@ def create_app(test_config=None):
     db.init_app(app)
     migrate.init_app(app, db, compare_type=True)
 
-    from .routes import fridge_bp, item_bp, category_bp
+    from .category_routes import category_bp
+    from .customer_routes import customer_bp
+    from .fridge_routes import fridge_bp
+    from .item_routes import item_bp
 
     # Register Blueprints here
     # app.register_blueprint(category_bp)
     app.register_blueprint(fridge_bp)
+    app.register_blueprint(customer_bp)
     app.register_blueprint(item_bp)
     app.register_blueprint(category_bp)
     # app.register_blueprint(user_bp)
