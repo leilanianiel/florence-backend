@@ -8,10 +8,12 @@ import os
 import requests
 from app import db
 from app.models.item import Item
-from flask import Flask, jsonify
+from flask import Flask, jsonify, url_for, redirect, session
 from authlib.integrations.flask_client import OAuth
 
 app = Flask(__name__)
+app.secret_key = 
+
 oauth = OAuth(app)
 google= oauth.register(
         name= "google",
@@ -29,16 +31,19 @@ google= oauth.register(
 
 @app.route('/login')
 def login():
+    google = oauth.create_client("google")
     redirect_uri = url_for('authorize', _external=True)
     return google.authorize_redirect(redirect_uri)
 
 
 @app.route('/authorize')
 def authorize():
+    google = oauth.create_client("google")
     token = google.authorize_access_token()
     # you can save the token into database
-    profile = google.get('/user', token=token)
-    return jsonify(profile)
+    resp = google.get("userinfo")
+    user_info = resp.json()
+    return jsonify(user_info)
 
 
 # flow = InstalledAppFlow.from_clients_secrets_file("client_secrests.json",
