@@ -5,6 +5,10 @@ import os
 import requests
 from app import db
 from app.models.item import Item
+from app.models.fridge import Fridge
+from app.models.category import Category
+import datetime
+import json
 
 
 # example_bp = Blueprint('example_bp', __name__)
@@ -13,13 +17,11 @@ fridge_bp = Blueprint("fridge", __name__, url_prefix="/fridge")
 
 @fridge_bp.route("", methods=["GET"], strict_slashes=False)
 def customers_fridge():
-        if request.method == "GET":
-                fridge = Fridge.query.all()
-                fridge_response = []
+    if request.method == "GET":
 
-        for i in fridge:
-                fridge_response.append(i.to_json())
-        return jsonify(fridge_response)
+        fridge = Fridge.query.all()
+        fridge_response = []
 
-
-
+    for i in fridge:
+        fridge_response.append(i)
+    return jsonify(fridge_response)
