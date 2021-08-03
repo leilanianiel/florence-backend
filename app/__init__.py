@@ -1,9 +1,10 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from dotenv import load_dotenv
+from dotenv import load_dotenv, dotenv_values
 import os
 from flask_cors import CORS
+from . import oauth_config as oauth_config
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -12,6 +13,10 @@ load_dotenv()
 
 def create_app(test_config=None):
     app = Flask(__name__)
+
+    if os.environ.get("FLASK_ENV") == "development":
+        app.config['secrets'] = dotenv_values('.env.secrets')
+    
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.url_map.strict_slashes = False
 
@@ -37,6 +42,7 @@ def create_app(test_config=None):
     from .customer_routes import customer_bp
     from .fridge_routes import fridge_bp
     from .item_routes import item_bp
+    from .auth_routes import auth_bp
 
     # Register Blueprints here
     # app.register_blueprint(category_bp)
@@ -44,7 +50,11 @@ def create_app(test_config=None):
     app.register_blueprint(customer_bp)
     app.register_blueprint(item_bp)
     app.register_blueprint(category_bp)
+    app.register_blueprint(auth_bp)
     # app.register_blueprint(user_bp)
 
     CORS(app)
+
+    oauth_config.init(app)
+
     return app
