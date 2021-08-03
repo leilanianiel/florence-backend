@@ -15,4 +15,5 @@ class Customer(db.Model):
     user_name = db.Column(db.String(30), unique=True)
     
     fridge_id = db.Column(db.Integer, db.ForeignKey('fridge.id'))
+
     fridge = db.relationship("Fridge", backref=backref("customer", uselist=False))

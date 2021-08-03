@@ -45,13 +45,13 @@ def create_app(test_config=None):
     from .auth_routes import auth_bp
 
     # Register Blueprints here
-    # app.register_blueprint(category_bp)
+    app.register_blueprint(category_bp)
     app.register_blueprint(fridge_bp)
     app.register_blueprint(customer_bp)
     app.register_blueprint(item_bp)
     app.register_blueprint(category_bp)
     app.register_blueprint(auth_bp)
-    # app.register_blueprint(user_bp)
+    app.register_blueprint(user_bp)
 
     CORS(app)
 

@@ -22,6 +22,6 @@ def customers_fridge():
         fridge = Fridge.query.all()
         fridge_response = []
 
-    for i in fridge:
-        fridge_response.append(i)
-    return jsonify(fridge_response)
+        for i in fridge:
+            fridge_response.append(i)
+        return jsonify(fridge_response)

@@ -2,6 +2,8 @@ from app import db
 from datetime import timedelta, datetime
 import datetime
 from dataclasses import dataclass
+from app.models.fridge import Fridge
+from app.models.category import Category
 
 @dataclass
 class Item(db.Model):
@@ -20,7 +22,6 @@ class Item(db.Model):
     expiration = db.Column(db.DateTime, default=(datetime.datetime.now() + (datetime.timedelta(days=(7)))))
     
     fridge_id = db.Column(db.Integer, db.ForeignKey('fridge.id'), unique=True)
-    
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), unique=True)
 
 #  Category.query.find()   

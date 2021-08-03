@@ -17,7 +17,6 @@ item_bp = Blueprint("item", __name__, url_prefix="/item")
 def get_item():
     if request.method == "GET":
         items = Item.query.all()
-
         return jsonify(items)
 
 
@@ -30,24 +29,25 @@ def create_item():
             return jsonify({"details": "Invalid data"}), 400
 
         category_id = request_body["category_id"]
-
         category = Category.query.get(category_id)
-
+        
+        #if category is not a current made, return 404
         if category is None:
-            return jsonify({"details": "Invalid data"}), 404
+            return jsonify({"details": "Invalid data, no category found"}), 404
 
-        expiration: datetime
+        # expiration: datetime
         if 'expiration' not in request_body:
             expiration = datetime.datetime.now() + datetime.timedelta(days=7)
         else:
-            expiration = datetime.parse(request_body['expiration'])
+            expiration = datetime(request_body['expiration'])
 
         item = Item(
             category_id=category_id,
             name=request_body["name"],
             item_inventory=request_body["item_inventory"],
-            expiration=expiration,
+            expiration=expiration
         )
+        
 
         db.session.add(item)
         db.session.commit()
