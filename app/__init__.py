@@ -14,7 +14,7 @@ load_dotenv()
 def create_app(test_config=None):
     app = Flask(__name__)
 
-    if os.environ.get("FLASK_ENV") == "development":
+    if "development" in os.environ.get("FLASK_ENV"):
         app.config['secrets'] = dotenv_values('.env.secrets')
     
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
