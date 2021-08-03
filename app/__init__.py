@@ -51,7 +51,7 @@ def create_app(test_config=None):
     app.register_blueprint(item_bp)
     app.register_blueprint(category_bp)
     app.register_blueprint(auth_bp)
-    app.register_blueprint(user_bp)
+    # app.register_blueprint(user_bp)
 
     CORS(app)
 

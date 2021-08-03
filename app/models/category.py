@@ -11,4 +11,3 @@ class Category(db.Model):
     name = db.Column(db.String)
 
     item = db.relationship("Item", backref="Category", passive_deletes=True)
-    item_id = db.Column(db.Integer, db.ForeignKey('item.id', ondelete='CASCADE'))
