@@ -3,7 +3,7 @@ from datetime import timedelta, datetime
 import datetime
 from dataclasses import dataclass
 
-@dataclass
+@dataclass #These classes don’t contain any additional functionality and can’t independently operate on the data that they own.
 class Item(db.Model):
     id: int
     name: str
@@ -21,7 +21,5 @@ class Item(db.Model):
     
     fridge_id = db.Column(db.Integer, db.ForeignKey('fridge.id'), unique=True)
     
-    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), unique=True)
-
-#  Category.query.find()   
-# { "name": "my item", "category": "my category" }
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), unique=True )
+    category = db.relationship('category', backref='item', passive_deletes=True) 
