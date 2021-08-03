@@ -9,10 +9,14 @@ from dataclasses import dataclass
 class Customer(db.Model):
     id: int
     user_name :str
+    email :str
+    picture :str
     fridge_id:int
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_name = db.Column(db.String(30), unique=True)
+    user_name = db.Column(db.String, unique=True)
+    email = db.Column(db.String, unique=True)
+    picture = db.Column(db.String)
     
     fridge_id = db.Column(db.Integer, db.ForeignKey('fridge.id'))
 

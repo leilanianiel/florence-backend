@@ -1,6 +1,9 @@
 from logging import log
 from flask import Blueprint, render_template, url_for, redirect, session
 from . import oauth_config as oauth_config
+from app.models.customer import Customer
+from app.models.fridge import Fridge
+from app import db
 
 auth_bp = Blueprint("auth", __name__, url_prefix="/")
 
@@ -20,6 +23,17 @@ def login():
 def auth():
     token = oauth_config.oauth.google.authorize_access_token()
     user = oauth_config.oauth.google.parse_id_token(token)
+    print(user.email)
+    print(user.name)
+    
+    
+    fridge = Fridge()
+    db.session.add(fridge)
+    db.session.commit()
+    customer = Customer(user_name=user.name, email=user.email, picture=user.picture, fridge_id=fridge.id)
+    db.session.add(customer)
+    db.session.commit()
+    
     session['user'] = user
     return redirect('/')
 
