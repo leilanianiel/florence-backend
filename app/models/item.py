@@ -20,3 +20,4 @@ class Item(db.Model):
 
     fridge_id = db.Column(db.Integer, db.ForeignKey('fridge.id'))
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+    product = db.relationship("Product", backref="item")

@@ -15,19 +15,23 @@ customer_bp = Blueprint("customer", __name__, url_prefix="/customer")
 
 
 @customer_bp.route("", methods=["GET", 'POST'], strict_slashes=False)
-@login_required 
+@login_required
 def customer():
     if request.method == "GET":
         categories = Customer.query.all()
 
         return jsonify(categories), 200
 
+
 @customer_bp.route("<id>", methods=["GET", 'DELETE'], strict_slashes=False)
-@login_required 
+@login_required
 def single_customer(id):
+    customer = Customer.query.get(id)
+    if request.method == "GET":
+        return jsonify(customer), 200
+
     if request.method == "DELETE":
-        customer = Customer.query.get(id)
-        
+
         db.session.delete(customer)
         db.session.commit()
         return "Done", 200

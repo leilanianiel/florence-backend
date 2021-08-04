@@ -18,5 +18,3 @@ class Product(db.Model):
     barcode = db.Column(db.String, unique=True)
 
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
-
-    item = db.relationship("Item", backref="Product", passive_deletes=True)

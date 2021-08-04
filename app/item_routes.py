@@ -13,9 +13,8 @@ item_bp = Blueprint("item", __name__, url_prefix="/item")
 @item_bp.route("", methods=["GET"], strict_slashes=False)
 @login_required
 def get_item():
-    if request.method == "GET":
-        items = Item.query.all()
-        return jsonify(items)
+    items = Item.query.all()
+    return jsonify(items)
 
 
 # CREATE NEW ITEM

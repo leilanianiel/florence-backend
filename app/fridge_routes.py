@@ -17,16 +17,21 @@ def new_fridge():
     db.session.add(fridge)
     db.session.commit()
 
-    return jsonify(fridge), 200
+    return jsonify(fridge), 201
 
 
 @fridge_bp.route("", methods=["GET"], strict_slashes=False)
 @login_required
-def customers_fridge():
+def all_fridges():
 
-    fridge = Fridge.query.all()
-    fridge_response = []
+    fridges = Fridge.query.all()
+    return jsonify(fridges), 200
 
-    for i in fridge:
-        fridge_response.append(i)
-    return jsonify(fridge_response)
+
+@fridge_bp.route("/<id>/items", methods=["GET"], strict_slashes=False)
+@login_required
+def fridge_items(id):
+
+    fridge = Fridge.query.get(id)
+
+    return jsonify(fridge.items), 200
