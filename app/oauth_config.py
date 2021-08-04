@@ -1,9 +1,17 @@
 from authlib.integrations.flask_client import OAuth
+from flask_login import LoginManager
+import os
 
 oauth = None
+login_manager = None
 
 def init(app):
-    app.secret_key = '!secret'
+    app.secret_key = os.urandom(24)
+
+    global login_manager
+    login_manager = LoginManager()
+    login_manager.init_app(app)
+
     app.config["GOOGLE_CLIENT_ID"] = app.config['secrets']["GOOGLE_CLIENT_ID"]
     app.config["GOOGLE_CLIENT_SECRET"] = app.config['secrets']["GOOGLE_CLIENT_SECRET"]
 
