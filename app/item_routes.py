@@ -9,11 +9,13 @@ from app.models.fridge import Fridge
 from app.models.category import Category
 import datetime
 import json
+from flask_login import login_required
 
 item_bp = Blueprint("item", __name__, url_prefix="/item")
 
 
 @item_bp.route("", methods=["GET"], strict_slashes=False)
+@login_required 
 def get_item():
     if request.method == "GET":
         items = Item.query.all()
@@ -21,6 +23,7 @@ def get_item():
 
 
 @item_bp.route("", methods=["POST"], strict_slashes=False)
+@login_required 
 def create_item():
     if request.method == "POST":
 

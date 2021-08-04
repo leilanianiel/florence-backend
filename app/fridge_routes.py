@@ -9,6 +9,7 @@ from app.models.fridge import Fridge
 from app.models.category import Category
 import datetime
 import json
+from flask_login import login_required
 
 
 # example_bp = Blueprint('example_bp', __name__)
@@ -16,6 +17,7 @@ fridge_bp = Blueprint("fridge", __name__, url_prefix="/fridge")
 
 
 @fridge_bp.route("", methods=["GET"], strict_slashes=False)
+@login_required 
 def customers_fridge():
     if request.method == "GET":
 
