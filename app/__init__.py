@@ -35,6 +35,7 @@ def create_app(test_config=None):
     from app.models.category import Category
     from app.models.fridge import Fridge
     from app.models.customer import Customer
+    from app.models.product import Product
 
     db.init_app(app)
     migrate.init_app(app, db, compare_type=True)
@@ -44,6 +45,7 @@ def create_app(test_config=None):
     from .category_routes import category_bp
     from .customer_routes import customer_bp
     from .fridge_routes import fridge_bp
+    from .product_routes import product_bp
     from .item_routes import item_bp
     from .auth_routes import auth_bp
 
@@ -53,7 +55,7 @@ def create_app(test_config=None):
     app.register_blueprint(customer_bp)
     app.register_blueprint(item_bp)
     app.register_blueprint(auth_bp)
-    # app.register_blueprint(user_bp)
+    app.register_blueprint(product_bp)
 
     CORS(app)
 

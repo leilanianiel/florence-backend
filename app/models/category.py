@@ -2,6 +2,7 @@ from app import db
 from sqlalchemy.orm import relationship
 from dataclasses import dataclass
 
+
 @dataclass
 class Category(db.Model):
     id: int
@@ -10,4 +11,5 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True)
     name = db.Column(db.String)
 
-    item = db.relationship("Item", backref="Category", passive_deletes=True)
+    product = db.relationship(
+        "Product", backref="Category", passive_deletes=True)
