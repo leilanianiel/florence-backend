@@ -9,6 +9,7 @@ from app.models.category import Category
 class Item(db.Model):
     id: int
     name: str
+    image: str
     item_inventory: int
     total_inventory: int
     expiration: datetime
@@ -17,6 +18,7 @@ class Item(db.Model):
     
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, unique=True)
     name = db.Column(db.String)
+    image = db.Column(db.String)
     item_inventory = db.Column(db.Integer, default=0)
     total_inventory = db.Column(db.Integer, default=0)
     expiration = db.Column(db.DateTime, default=(datetime.datetime.now() + (datetime.timedelta(days=(7)))))

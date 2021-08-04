@@ -9,11 +9,13 @@ from app.models.fridge import Fridge
 from app.models.category import Category
 import datetime
 import json
+from flask_login import login_required
 
 # example_bp = Blueprint('example_bp', __name__)
 category_bp = Blueprint("category", __name__, url_prefix="/category")
 
 # GET ALL AND CREATE NEW CATEGORY
+@login_required 
 @category_bp.route("", methods=["GET", 'POST'], strict_slashes=False)
 def category():
     if request.method == "GET":
@@ -39,7 +41,8 @@ def category():
 
 
 
-# GET, UPDATE, DELETE 1 SPECIIC CATEGORY 
+# GET, UPDATE, DELETE 1 SPECIIC CATEGORY
+@login_required 
 @category_bp.route("/<id>", methods=['GET', 'PATCH', 'DELETE'], strict_slashes=False)
 def handle_category(id):
 

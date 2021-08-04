@@ -1,6 +1,7 @@
 {% if user %}
 <pre>
 {{ user|tojson }}
+<img src="{{user.picture}}">
 </pre>
 <a href="/logout">logout</a>
 {% else %}
