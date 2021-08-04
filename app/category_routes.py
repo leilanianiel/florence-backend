@@ -22,10 +22,6 @@ def category():
         categories = Category.query.all()
         return jsonify(categories), 200
 
-    # if request.method == "POST":
-    #     request_body = request.get_json()
-    #     if "name" not in request_body or "id" not in request_body:
-    #         return make_response(jsonify({"details": "Invalid data"}), 400)
 
     if request.method == "POST":
         request_body = request.get_json()
@@ -33,8 +29,7 @@ def category():
             return make_response(jsonify({"details": "Invalid data"}), 400)
 
         category = Category(name=request_body["name"])
-        # category = Category(name=request_body["name"], id=request_body["id"])
-
+        
         db.session.add(category)
         db.session.commit()
         return jsonify(category), 201
@@ -42,7 +37,7 @@ def category():
 
 
 # GET, UPDATE, DELETE 1 SPECIIC CATEGORY
-@login_required 
+# @login_required 
 @category_bp.route("/<id>", methods=['GET', 'PATCH', 'DELETE'], strict_slashes=False)
 def handle_category(id):
 

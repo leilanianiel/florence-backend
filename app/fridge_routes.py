@@ -9,7 +9,7 @@ from app.models.fridge import Fridge
 from app.models.category import Category
 import datetime
 import json
-from flask_login import login_required
+from flask_login import login_required 
 
 
 # example_bp = Blueprint('example_bp', __name__)

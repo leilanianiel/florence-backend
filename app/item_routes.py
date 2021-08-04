@@ -29,8 +29,11 @@ def get_item():
 def create_item():
     
 
+    
+
     if request.method == "POST":
 
+        
         request_body = request.get_json()
         if "name" not in request_body or "item_inventory" not in request_body or "category_id" not in request_body:
             return jsonify({"details": "Invalid data"}), 400
@@ -42,6 +45,18 @@ def create_item():
         if category is None:
             return jsonify({"details": "Invalid data, no category found"}), 404
 
+        #search if item alreay in inventory, this is list of all item with this name in db
+        item_with_name = Item.query.filter_by(name=request_body['name']).all()
+        
+        total_inventory = request_body["item_inventory"]
+        for item in item_with_name:
+            total_inventory += item.item_inventory
+
+        # reset total invenotry in previous items to new total inventory
+        for item in item_with_name:
+            item.total_inventory = total_inventory
+
+    
         # expiration: datetime
         if 'expiration' not in request_body:
             expiration = datetime.datetime.now() + datetime.timedelta(days=7)
@@ -53,7 +68,7 @@ def create_item():
             name=request_body["name"],
             item_inventory=request_body["item_inventory"],
             expiration=expiration,
-            # total_inventory = self.total_inventory
+            total_inventory = total_inventory
         )
 
         db.session.add(item)
@@ -63,7 +78,7 @@ def create_item():
 
 
 
-# GET, UPDATE, DELETE 1 SPECIIC ITEM 
+# GET, UPDATE, DELETE 1 SPECIIC ITEM (not working yet)
 @item_bp.route("/<id>", methods=['GET', 'PATCH', 'DELETE'], strict_slashes=False)
 def handle_item(id):
 
