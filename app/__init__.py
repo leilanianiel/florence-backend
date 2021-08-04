@@ -16,6 +16,7 @@ def create_app(test_config=None):
 
     if "development" in os.environ.get("FLASK_ENV"):
         app.config['secrets'] = dotenv_values('.env.secrets')
+        app.config['LOGIN_DISABLED'] = True
 
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.url_map.strict_slashes = False
