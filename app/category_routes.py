@@ -20,12 +20,18 @@ def category():
         categories = Category.query.all()
         return jsonify(categories), 200
 
+    # if request.method == "POST":
+    #     request_body = request.get_json()
+    #     if "name" not in request_body or "id" not in request_body:
+    #         return make_response(jsonify({"details": "Invalid data"}), 400)
+
     if request.method == "POST":
         request_body = request.get_json()
-        if "name" not in request_body or "id" not in request_body:
+        if "name" not in request_body:
             return make_response(jsonify({"details": "Invalid data"}), 400)
 
-        category = Category(name=request_body["name"], id=request_body["id"])
+        category = Category(name=request_body["name"])
+        # category = Category(name=request_body["name"], id=request_body["id"])
 
         db.session.add(category)
         db.session.commit()

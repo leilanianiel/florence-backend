@@ -21,8 +21,16 @@ class Item(db.Model):
     total_inventory = db.Column(db.Integer, default=0)
     expiration = db.Column(db.DateTime, default=(datetime.datetime.now() + (datetime.timedelta(days=(7)))))
     
-    fridge_id = db.Column(db.Integer, db.ForeignKey('fridge.id'), unique=True)
-    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), unique=True)
+    fridge_id = db.Column(db.Integer, db.ForeignKey('fridge.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+
+    # def inventory(item_inventory):
+    #     total_inventory = 0
+    #     for i in item_inventory:
+    #         total_inventory.append(i)
+    #     return total_inventory
+
+
 
 #  Category.query.find()   
 # { "name": "my item", "category": "my category" }
