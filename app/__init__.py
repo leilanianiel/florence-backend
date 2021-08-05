@@ -10,9 +10,13 @@ db = SQLAlchemy()
 migrate = Migrate()
 load_dotenv()
 
+app = None
+
 
 def create_app(test_config=None):
-    app = Flask(__name__)
+    global app
+    app = Flask(__name__, static_folder="frontend",
+                template_folder="frontend")
 
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.url_map.strict_slashes = False
@@ -49,6 +53,7 @@ def create_app(test_config=None):
     from .product_routes import product_bp
     from .item_routes import item_bp
     from .auth_routes import auth_bp
+    from .frontend_routes import app_bp
 
     # Register Blueprints here
     app.register_blueprint(category_bp)
@@ -57,7 +62,8 @@ def create_app(test_config=None):
     app.register_blueprint(item_bp)
     app.register_blueprint(auth_bp)
     app.register_blueprint(product_bp)
+    app.register_blueprint(app_bp)
 
-    CORS(app)
+    CORS(app, origins=["http://localhost:5000", "https://secure-inlet-48213.herokuapp.com/"])
 
     return app
