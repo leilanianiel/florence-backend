@@ -28,7 +28,7 @@ def create_app(test_config=None):
     if "development" in os.environ.get("FLASK_ENV"):
         app.config['secrets'] = dotenv_values('.env.secrets')
         app.config['LOGIN_DISABLED'] = True
-        app.config["SQLALCHEMY_DATABASE_URI"] = app.config['secrets']['["SQLALCHEMY_DATABASE_URI"]']
+        app.config["SQLALCHEMY_DATABASE_URI"] = app.config['secrets']["SQLALCHEMY_DATABASE_URI"]
 
     # Import models here for Alembic setup
     # from app.models.ExampleModel import ExampleModel
