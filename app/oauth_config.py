@@ -13,8 +13,10 @@ def init(app):
     login_manager = LoginManager()
     login_manager.init_app(app)
 
-    app.config["GOOGLE_CLIENT_ID"] = app.config['secrets']["GOOGLE_CLIENT_ID"]
-    app.config["GOOGLE_CLIENT_SECRET"] = app.config['secrets']["GOOGLE_CLIENT_SECRET"]
+    if "GOOGLE_CLIENT_ID" not in app.config:
+        app.config["GOOGLE_CLIENT_ID"] = app.config['secrets']["GOOGLE_CLIENT_ID"]
+    if "GOOGLE_CLIENT_SECRET" not in app.config:
+        app.config["GOOGLE_CLIENT_SECRET"] = app.config['secrets']["GOOGLE_CLIENT_SECRET"]
 
     CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
 
