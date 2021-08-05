@@ -14,10 +14,6 @@ load_dotenv()
 def create_app(test_config=None):
     app = Flask(__name__)
 
-    if "development" in os.environ.get("FLASK_ENV"):
-        app.config['secrets'] = dotenv_values('.env.secrets')
-        app.config['LOGIN_DISABLED'] = True
-
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.url_map.strict_slashes = False
 
@@ -28,6 +24,11 @@ def create_app(test_config=None):
         app.config["TESTING"] = True
         app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
             "SQLALCHEMY_TEST_DATABASE_URI")
+
+    if "development" in os.environ.get("FLASK_ENV"):
+        app.config['secrets'] = dotenv_values('.env.secrets')
+        app.config['LOGIN_DISABLED'] = True
+        app.config["SQLALCHEMY_DATABASE_URI"] = app.config['secrets']['["SQLALCHEMY_DATABASE_URI"]']
 
     # Import models here for Alembic setup
     # from app.models.ExampleModel import ExampleModel
