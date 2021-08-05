@@ -3,7 +3,7 @@ from flask import Blueprint, send_from_directory
 from flask.templating import render_template
 from . import oauth_config as oauth_config
 from app.models.customer import Customer
-from flask_login import current_user, login_required
+from flask_login import current_user
 from app import app
 
 app_bp = Blueprint("app", __name__, url_prefix="/app")
@@ -29,4 +29,9 @@ def static_files(path):
 @app_bp.route("/")
 def serve():
     print(app.static_folder)
-    return render_template('index.html')
+    
+    user_id = None
+    if current_user.is_authenticated:
+        user_id = current_user.id
+
+    return render_template('index.html', user_id=user_id)
