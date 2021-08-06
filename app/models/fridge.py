@@ -14,3 +14,4 @@ class Fridge(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
     items = db.relationship("Item", backref="fridge")
+

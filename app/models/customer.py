@@ -22,8 +22,7 @@ class Customer(db.Model, UserMixin):
 
     fridge_id = db.Column(db.Integer, db.ForeignKey('fridge.id'))
 
-    fridge = db.relationship(
-        "Fridge", backref=backref("customer", uselist=False))
+    fridge = db.relationship("Fridge", backref=backref("customer", uselist=False))
 
     def get_id(self):
         print(f'customer get id: {self.id}')
