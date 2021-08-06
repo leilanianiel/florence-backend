@@ -94,12 +94,20 @@ def handle_item(id):
 @login_required
 def decrease_count(id):
 
-    
     item = Item.query.get(id)
 
-    item.count -= 1
-    db.session.add(item)
-    db.session.commit()
+    # When count is equal to 0, delete item from fridge 
+    if item.count < 2:
+        item.count -= 1
+        db.session.delete(item)
+        db.session.commit()
+
+        
+    # decrease count of item
+    else: 
+        item.count -= 1
+        db.session.add(item)
+        db.session.commit()
 
     return make_response({"New item count": item.count}, 200)
 
