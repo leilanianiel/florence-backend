@@ -25,7 +25,7 @@ def create_item():
     if "count" not in request_body or "product_id" not in request_body or "fridge_id" not in request_body:
         return jsonify({"details": "Invalid data"}), 400
 
-    product_id = request_body["product_id"]
+    product_id = request_body["product_id"] # Exp: Apple, Orange, Redbull
     product = Product.query.get(product_id)
 
     # if product is not currently made, return 404
@@ -34,16 +34,19 @@ def create_item():
 
     fridge_id = request_body["fridge_id"]
     fridge = Fridge.query.get(fridge_id)
+    
 
     # if fridge is not currently made, return 404
     if fridge is None:
         return jsonify({"details": "Invalid data, no fridge found"}), 404
 
+    
     # expiration: datetime
+    if 'expiration'in request_body:
+        expiration = datetime.datetime.now() + datetime.timedelta(days=(request_body['expiration']))
     if 'expiration' not in request_body:
         expiration = datetime.datetime.now() + datetime.timedelta(days=7)
-    else:
-        expiration = datetime(request_body['expiration'])
+    
 
     item = Item(
         count=request_body["count"],
@@ -82,7 +85,7 @@ def handle_item(id):
         db.session.delete(item)
         db.session.commit()
         return make_response({
-            "id": item.id
+            "Deleted item id": item.id
         }, 200)
 
 
