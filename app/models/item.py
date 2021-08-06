@@ -13,7 +13,7 @@ class Item(db.Model):
     product_id: int
 
     id = db.Column(db.Integer, primary_key=True,
-                   autoincrement=True, unique=True)
+                autoincrement=True, unique=True)
     count = db.Column(db.Integer, default=0)
     expiration = db.Column(db.DateTime, default=(
         datetime.datetime.now() + (datetime.timedelta(days=(7)))))

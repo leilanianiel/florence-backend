@@ -56,7 +56,6 @@ def create_product():
 # GET, UPDATE, DELETE 1 SPECIIC PRODUCT (not working yet)
 @product_bp.route("/<id>", methods=['GET', 'PATCH', 'DELETE'], strict_slashes=False)
 def handle_product(id):
-
     product = Product.query.get(id)
 
     if request.method == "GET":
@@ -64,12 +63,11 @@ def handle_product(id):
 
     if request.method == "PATCH":
         request_body = request.get_json()
-        if "name" not in request_body or "product_inventory" not in request_body or "category_id" not in request_body:
+        if "name" not in request_body or "category_id" not in request_body:
             return jsonify({"details": "Invalid data"}), 400
 
         product.name = request_body["name"]
-        product.product_inventory = request_body["product_inventory"]
-        product.category_id = request_body["category_id"]
+        product.product_inventory = request_body["category_id"]
 
         db.session.commit()
         return jsonify(product), 201
