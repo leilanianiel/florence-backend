@@ -64,6 +64,6 @@ def create_app(test_config=None):
     app.register_blueprint(product_bp)
     app.register_blueprint(app_bp)
 
-    CORS(app, origins=["http://localhost:5000", "https://secure-inlet-48213.herokuapp.com/"])
+    CORS(app, origins=["http://localhost:3000", "https://secure-inlet-48213.herokuapp.com/"])
 
     return app
