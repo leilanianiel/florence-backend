@@ -26,7 +26,6 @@ def create_item():
         return jsonify({"details": "Invalid data"}), 400
 
     product_id = request_body["product_id"] # Exp: Apple, Orange, Redbull
-    expiration_input = request_body["expiration"]
     product = Product.query.get(product_id)
 
     # if product is not currently made, return 404
@@ -35,16 +34,19 @@ def create_item():
 
     fridge_id = request_body["fridge_id"]
     fridge = Fridge.query.get(fridge_id)
+    
 
     # if fridge is not currently made, return 404
     if fridge is None:
         return jsonify({"details": "Invalid data, no fridge found"}), 404
 
+    
     # expiration: datetime
+    if 'expiration'in request_body:
+        expiration = datetime.datetime.now() + datetime.timedelta(days=(request_body['expiration']))
     if 'expiration' not in request_body:
         expiration = datetime.datetime.now() + datetime.timedelta(days=7)
-    else:
-        expiration = datetime.datetime.now() + datetime.timedelta(days=expiration_input)
+    
 
     item = Item(
         count=request_body["count"],
@@ -83,12 +85,13 @@ def handle_item(id):
         db.session.delete(item)
         db.session.commit()
         return make_response({
-            "id": item.id
+            "Deleted item id": item.id
         }, 200)
 
 
 # Decrease inventory count 
-@item_bp.route("/<id>/decrease_count", methods=["POST"])
+@item_bp.route("/<id>/decrease_count", methods=['POST'])
+@login_required
 def decrease_count(id):
 
     
