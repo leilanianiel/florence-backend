@@ -28,8 +28,6 @@ def static_files(path):
 
 @app_bp.route("/")
 def serve():
-    print(app.static_folder)
-    
     user_id = None
     if current_user.is_authenticated:
         user_id = current_user.id
