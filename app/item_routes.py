@@ -82,6 +82,5 @@ def handle_item(id):
         db.session.delete(item)
         db.session.commit()
         return make_response({
-            "Deleted": item.name,
             "id": item.id
         }, 200)
