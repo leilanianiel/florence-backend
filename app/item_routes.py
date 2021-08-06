@@ -25,7 +25,8 @@ def create_item():
     if "count" not in request_body or "product_id" not in request_body or "fridge_id" not in request_body:
         return jsonify({"details": "Invalid data"}), 400
 
-    product_id = request_body["product_id"]
+    product_id = request_body["product_id"] # Exp: Apple, Orange, Redbull
+    expiration_input = request_body["expiration"]
     product = Product.query.get(product_id)
 
     # if product is not currently made, return 404
@@ -43,7 +44,7 @@ def create_item():
     if 'expiration' not in request_body:
         expiration = datetime.datetime.now() + datetime.timedelta(days=7)
     else:
-        expiration = datetime(request_body['expiration'])
+        expiration = datetime.datetime.now() + datetime.timedelta(days=expiration_input)
 
     item = Item(
         count=request_body["count"],
@@ -84,3 +85,19 @@ def handle_item(id):
         return make_response({
             "id": item.id
         }, 200)
+
+
+# Decrease inventory count 
+@item_bp.route("/<id>/decrease_count", methods=["POST"])
+def decrease_count(id):
+
+    
+    item = Item.query.get(id)
+
+    item.count -= 1
+    db.session.add(item)
+    db.session.commit()
+
+    return make_response({"New item count": item.count}, 200)
+
+
