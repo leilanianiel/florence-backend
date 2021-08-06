@@ -1,31 +1,12 @@
 from flask import Blueprint, url_for, redirect, session
 from flask.json import jsonify
-from flask.templating import render_template
 from . import oauth_config as oauth_config
 from app.models.customer import Customer
 from app.models.fridge import Fridge
 from app import db
-from flask_login import current_user, login_required, login_user, logout_user
-import json
+from flask_login import login_required, login_user, logout_user
 
 auth_bp = Blueprint("auth", __name__, url_prefix="/")
-
-
-@oauth_config.login_manager.user_loader
-def get_user(id):
-    customer = Customer.query.get(int(id))
-    return customer
-
-
-@auth_bp.route("/", methods=["GET"], strict_slashes=False)
-def anon_home():
-    return render_template('home.html', user=None)
-
-
-@auth_bp.route("/secureHome", methods=["GET"], strict_slashes=False)
-@login_required
-def home():
-    return render_template('home.html', user=get_user(current_user.id))
 
 
 @auth_bp.route("/login", methods=["GET"], strict_slashes=False)
@@ -52,7 +33,7 @@ def auth_register():
 
     # need to show user that something is wrong
     if len(existing_customers) > 0:
-        return redirect('/')
+        return redirect('/app')
 
     fridge = Fridge()
     db.session.add(fridge)
@@ -63,7 +44,7 @@ def auth_register():
     db.session.commit()
 
     login_user(customer)
-    return redirect('/')
+    return redirect('/app')
 
 
 @auth_bp.route("/auth", strict_slashes=False)
@@ -77,7 +58,7 @@ def auth():
         raise "Customer doesn't exist"
     print(jsonify(existing_customer[0]))
     login_user(existing_customer[0])
-    return redirect('/')
+    return redirect('/app')
 
 
 @auth_bp.route("/logout", strict_slashes=False)
@@ -85,4 +66,4 @@ def auth():
 def logout():
     session.pop('user', None)
     logout_user()
-    return redirect('/')
+    return redirect('/app')

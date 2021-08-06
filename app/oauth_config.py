@@ -7,7 +7,7 @@ login_manager = None
 
 
 def init(app):
-    app.secret_key = os.urandom(24)
+    app.secret_key = 'hey this is a super secret key'
 
     global login_manager
     login_manager = LoginManager()
