@@ -11,7 +11,7 @@ class Product(db.Model):
     category_id: int
 
     id = db.Column(db.Integer, primary_key=True,
-                   autoincrement=True, unique=True)
+                    autoincrement=True, unique=True)
 
     name = db.Column(db.String)
     image = db.Column(db.String)
