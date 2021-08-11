@@ -16,9 +16,11 @@ def init(app):
     if "development" in os.environ.get("FLASK_ENV"):
         app.config["GOOGLE_CLIENT_ID"] = app.config['secrets']["GOOGLE_CLIENT_ID"]
         app.config["GOOGLE_CLIENT_SECRET"] = app.config['secrets']["GOOGLE_CLIENT_SECRET"]
+        app.config["SPOONACULAR"] = app.config['secrets']["SPOONACULAR"]
     else:
         app.config["GOOGLE_CLIENT_ID"] = os.environ["GOOGLE_CLIENT_ID"]
         app.config["GOOGLE_CLIENT_SECRET"] = os.environ["GOOGLE_CLIENT_SECRET"]
+        app.config["SPOONACULAR"] = os.environ["SPOONACULAR"]
 
     CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
 
