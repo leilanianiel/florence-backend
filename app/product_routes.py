@@ -7,6 +7,17 @@ import datetime
 from flask_login import login_required
 
 product_bp = Blueprint("product", __name__, url_prefix="/product")
+recipes_bp = Blueprint("item", __name__, url_prefix="/item")
+
+# GET ALL PRODUCTS
+@recipes_bp.route("", methods=["GET"], strict_slashes=False)
+
+# Get request from Spoonacular 
+@login_required
+def get_recipes():
+    products = Product.query.all()
+    #HOW DO WE CALL THIS API USING ARE CURENT PRODUCT LIST 
+    return jsonify(products)
 
 
 # GET ALL PRODUCTS
@@ -79,3 +90,6 @@ def handle_product(id):
             "Deleted": product.name,
             "id": product.id
         }, 200)
+
+
+
