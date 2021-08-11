@@ -54,6 +54,7 @@ def create_app(test_config=None):
     from .item_routes import item_bp
     from .auth_routes import auth_bp
     from .frontend_routes import app_bp
+    from .recipes_routes import recipes_bp
 
     # Register Blueprints here
     app.register_blueprint(category_bp)
@@ -63,6 +64,7 @@ def create_app(test_config=None):
     app.register_blueprint(auth_bp)
     app.register_blueprint(product_bp)
     app.register_blueprint(app_bp)
+    app.register_blueprint(recipes_bp)
 
     CORS(app, origins=["http://localhost:3000", "https://secure-inlet-48213.herokuapp.com/"])
 
