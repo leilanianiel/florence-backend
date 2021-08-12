@@ -38,14 +38,40 @@ Variations
     data = r.json()
     return json.dumps(data), 200
 
+def get_recipe_url(recipe_id):
+    r = requests.get(url=f'https://api.spoonacular.com/recipes/{recipe_id}/information', params={
+        "apiKey": app.config["SPOONACULAR"]})
+    data = r.json()
 
+    return data['sourceUrl']
+
+    
 @recipes_bp.route("", methods=["GET"], strict_slashes=False)
 @login_required
 def get_recipes():
     
     if "development" in os.environ.get("FLASK_ENV"):
-        testingData = '[{"id": 649381, "image": "https://spoonacular.com/recipeImages/649381-312x231.jpg", "imageType": "jpg", "likes": 1, "missedIngredientCount": 2, "missedIngredients": [{"aisle": "Spices and Seasonings", "amount": 0.5, "id": 2010, "image": "https://spoonacular.com/cdn/ingredients_100x100/cinnamon.jpg", "meta": [], "metaInformation": [], "name": "cinnamon", "original": "1/2 teaspoon cinnamon", "originalName": "cinnamon", "originalString": "1/2 teaspoon cinnamon", "unit": "teaspoon", "unitLong": "teaspoons", "unitShort": "tsp"}, {"aisle": "Baking", "amount": 1.0, "id": 18137, "image": "https://spoonacular.com/cdn/ingredients_100x100/white-cake-mix.jpg", "meta": ["white"], "metaInformation": ["white"], "name": "white cake mix", "original": "1 pkt white cake mix", "originalName": "pkt white cake mix", "originalString": "1 pkt white cake mix", "unit": "", "unitLong": "", "unitShort": ""}], "title": "Lazy Cobbler", "unusedIngredients": [{"aisle": "Produce", "amount": 1.0, "id": 11135, "image": "https://spoonacular.com/cdn/ingredients_100x100/cauliflower.jpg", "meta": [], "metaInformation": [], "name": "cauliflower", "original": "Cauliflower", "originalName": "Cauliflower", "originalString": "Cauliflower", "unit": "serving", "unitLong": "serving", "unitShort": "serving"}, {"aisle": "Produce", "amount": 1.0, "id": 9200, "image": "https://spoonacular.com/cdn/ingredients_100x100/orange.png", "meta": [], "metaInformation": [], "name": "oranges", "original": "Oranges", "originalName": "Oranges", "originalString": "Oranges", "unit": "serving", "unitLong": "serving", "unitShort": "serving"}], "usedIngredientCount": 2, "usedIngredients": [{"aisle": "Milk, Eggs, Other Dairy", "amount": 8.0, "id": 1001, "image": "https://spoonacular.com/cdn/ingredients_100x100/butter-sliced.jpg", "meta": [], "metaInformation": [], "name": "butter", "original": "butter", "originalName": "butter", "originalString": "butter", "unit": "servings", "unitLong": "servings", "unitShort": "servings"}, {"aisle": "Produce", "amount": 1.0, "extendedName": "canned peaches", "id": 9236, "image": "https://spoonacular.com/cdn/ingredients_100x100/peach.png", "meta": ["sliced"], "metaInformation": ["sliced"], "name": "peaches", "original": "1 large can sliced peaches", "originalName": "sliced peaches", "originalString": "1 large can sliced peaches", "unit": "large can", "unitLong": "large can", "unitShort": "large can"}]}, {"id": 157473, "image": "https://spoonacular.com/recipeImages/157473-312x231.jpg", "imageType": "jpg", "likes": 0, "missedIngredientCount": 2, "missedIngredients": [{"aisle": "Produce", "amount": 1.0, "id": 11215, "image": "https://spoonacular.com/cdn/ingredients_100x100/garlic.png", "meta": [], "metaInformation": [], "name": "garlic", "original": "1 head of garlic, roasted", "originalName": "garlic, roasted", "originalString": "1 head of garlic, roasted", "unit": "head", "unitLong": "head", "unitShort": "head"}, {"aisle": "Milk, Eggs, Other Dairy", "amount": 0.5, "id": 1077, "image": "https://spoonacular.com/cdn/ingredients_100x100/milk.png", "meta": ["2%", "(I used )"], "metaInformation": ["2%", "(I used )"], "name": "milk", "original": "1/2 cup milk (I used 2%)", "originalName": "milk (I used 2%)", "originalString": "1/2 cup milk (I used 2%)", "unit": "cup", "unitLong": "cups", "unitShort": "cup"}], "title": "Cauliflower Mash with Roasted Garlic", "unusedIngredients": [{"aisle": "Produce", "amount": 1.0, "id": 9236, "image": "https://spoonacular.com/cdn/ingredients_100x100/peach.png", "meta": [], "metaInformation": [], "name": "peaches", "original": "Peaches", "originalName": "Peaches", "originalString": "Peaches", "unit": "serving", "unitLong": "serving", "unitShort": "serving"}, {"aisle": "Produce", "amount": 1.0, "id": 9200, "image": "https://spoonacular.com/cdn/ingredients_100x100/orange.png", "meta": [], "metaInformation": [], "name": "oranges", "original": "Oranges", "originalName": "Oranges", "originalString": "Oranges", "unit": "serving", "unitLong": "serving", "unitShort": "serving"}], "usedIngredientCount": 2, "usedIngredients": [{"aisle": "Milk, Eggs, Other Dairy", "amount": 3.0, "id": 1001, "image": "https://spoonacular.com/cdn/ingredients_100x100/butter-sliced.jpg", "meta": [], "metaInformation": [], "name": "butter", "original": "3 tablespoons butter", "originalName": "butter", "originalString": "3 tablespoons butter", "unit": "tablespoons", "unitLong": "tablespoons", "unitShort": "Tbsp"}, {"aisle": "Produce", "amount": 1.0, "id": 11135, "image": "https://spoonacular.com/cdn/ingredients_100x100/cauliflower.jpg", "meta": ["cut into florets"], "metaInformation": ["cut into florets"], "name": "cauliflower", "original": "1 large head of cauliflower, cut into florets", "originalName": "cauliflower, cut into florets", "originalString": "1 large head of cauliflower, cut into florets", "unit": "large head", "unitLong": "large head", "unitShort": "large head"}]}]'
-        return testingData, 200
+        testingData = [{"id": 649381, "image": "https://spoonacular.com/recipeImages/649381-312x231.jpg", "imageType": "jpg", "likes": 1, "missedIngredientCount": 2, "missedIngredients": [{"aisle": "Spices and Seasonings", "amount": 0.5, "id": 2010, "image": "https://spoonacular.com/cdn/ingredients_100x100/cinnamon.jpg", "meta": [], "metaInformation": [], "name": "cinnamon", "original": "1/2 teaspoon cinnamon", "originalName": "cinnamon", "originalString": "1/2 teaspoon cinnamon", "unit": "teaspoon", "unitLong": "teaspoons", "unitShort": "tsp"}, {"aisle": "Baking", "amount": 1.0, "id": 18137, "image": "https://spoonacular.com/cdn/ingredients_100x100/white-cake-mix.jpg", "meta": ["white"], "metaInformation": ["white"], "name": "white cake mix", "original": "1 pkt white cake mix", "originalName": "pkt white cake mix", "originalString": "1 pkt white cake mix", "unit": "", "unitLong": "", "unitShort": ""}], "title": "Lazy Cobbler", "unusedIngredients": [{"aisle": "Produce", "amount": 1.0, "id": 11135, "image": "https://spoonacular.com/cdn/ingredients_100x100/cauliflower.jpg", "meta": [], "metaInformation": [], "name": "cauliflower", "original": "Cauliflower", "originalName": "Cauliflower", "originalString": "Cauliflower", "unit": "serving", "unitLong": "serving", "unitShort": "serving"}, {"aisle": "Produce", "amount": 1.0, "id": 9200, "image": "https://spoonacular.com/cdn/ingredients_100x100/orange.png", "meta": [], "metaInformation": [], "name": "oranges", "original": "Oranges", "originalName": "Oranges", "originalString": "Oranges", "unit": "serving", "unitLong": "serving", "unitShort": "serving"}], "usedIngredientCount": 2, "usedIngredients": [{"aisle": "Milk, Eggs, Other Dairy", "amount": 8.0, "id": 1001, "image": "https://spoonacular.com/cdn/ingredients_100x100/butter-sliced.jpg", "meta": [], "metaInformation": [], "name": "butter", "original": "butter", "originalName": "butter", "originalString": "butter", "unit": "servings", "unitLong": "servings", "unitShort": "servings"}, {"aisle": "Produce", "amount": 1.0, "extendedName": "canned peaches", "id": 9236, "image": "https://spoonacular.com/cdn/ingredients_100x100/peach.png", "meta": ["sliced"], "metaInformation": ["sliced"], "name": "peaches", "original": "1 large can sliced peaches", "originalName": "sliced peaches", "originalString": "1 large can sliced peaches", "unit": "large can", "unitLong": "large can", "unitShort": "large can"}]}, {"id": 157473, "image": "https://spoonacular.com/recipeImages/157473-312x231.jpg", "imageType": "jpg", "likes": 0, "missedIngredientCount": 2, "missedIngredients": [{"aisle": "Produce", "amount": 1.0, "id": 11215, "image": "https://spoonacular.com/cdn/ingredients_100x100/garlic.png", "meta": [], "metaInformation": [], "name": "garlic", "original": "1 head of garlic, roasted", "originalName": "garlic, roasted", "originalString": "1 head of garlic, roasted", "unit": "head", "unitLong": "head", "unitShort": "head"}, {"aisle": "Milk, Eggs, Other Dairy", "amount": 0.5, "id": 1077, "image": "https://spoonacular.com/cdn/ingredients_100x100/milk.png", "meta": ["2%", "(I used )"], "metaInformation": ["2%", "(I used )"], "name": "milk", "original": "1/2 cup milk (I used 2%)", "originalName": "milk (I used 2%)", "originalString": "1/2 cup milk (I used 2%)", "unit": "cup", "unitLong": "cups", "unitShort": "cup"}], "title": "Cauliflower Mash with Roasted Garlic", "unusedIngredients": [{"aisle": "Produce", "amount": 1.0, "id": 9236, "image": "https://spoonacular.com/cdn/ingredients_100x100/peach.png", "meta": [], "metaInformation": [], "name": "peaches", "original": "Peaches", "originalName": "Peaches", "originalString": "Peaches", "unit": "serving", "unitLong": "serving", "unitShort": "serving"}, {"aisle": "Produce", "amount": 1.0, "id": 9200, "image": "https://spoonacular.com/cdn/ingredients_100x100/orange.png", "meta": [], "metaInformation": [], "name": "oranges", "original": "Oranges", "originalName": "Oranges", "originalString": "Oranges", "unit": "serving", "unitLong": "serving", "unitShort": "serving"}], "usedIngredientCount": 2, "usedIngredients": [{"aisle": "Milk, Eggs, Other Dairy", "amount": 3.0, "id": 1001, "image": "https://spoonacular.com/cdn/ingredients_100x100/butter-sliced.jpg", "meta": [], "metaInformation": [], "name": "butter", "original": "3 tablespoons butter", "originalName": "butter", "originalString": "3 tablespoons butter", "unit": "tablespoons", "unitLong": "tablespoons", "unitShort": "Tbsp"}, {"aisle": "Produce", "amount": 1.0, "id": 11135, "image": "https://spoonacular.com/cdn/ingredients_100x100/cauliflower.jpg", "meta": ["cut into florets"], "metaInformation": ["cut into florets"], "name": "cauliflower", "original": "1 large head of cauliflower, cut into florets", "originalName": "cauliflower, cut into florets", "originalString": "1 large head of cauliflower, cut into florets", "unit": "large head", "unitLong": "large head", "unitShort": "large head"}]}]
+        recipe_response = []
+        
+        for recipe in testingData:
+            print(recipe)
+            recipe_id = recipe['id']
+            title = recipe['title']
+            image = recipe["image"] #put into image tag
+            url = get_recipe_url(recipe_id)
+
+            recipe_dict = {
+                "name" : title,
+                "url" : url,
+                "image" : image
+            }
+            recipe_response.append(recipe_dict)
+
+        
+
+
+        return jsonify(recipe_response), 200
     
     if current_user.is_authenticated:
         customer_id = current_user.id
@@ -64,6 +90,9 @@ def get_recipes():
         ingredientList = ''
         for name in productNames.keys():
             ingredientList += name + ","
+        
+        
+        print(ingredientList)
 
         response = requests.get(url='https://api.spoonacular.com/recipes/findByIngredients', params={
             "ingredients": ingredientList,
@@ -71,7 +100,27 @@ def get_recipes():
         print(response)
         # extracting data in json format
         data = response.json()
-        return json.dumps(data), 200
+
+        recipe_response = []
+        
+        for recipe in data:
+            recipe_id = recipe['id']
+            title = recipe['title']
+            url = get_recipe_url(recipe_id)
+
+            recipe_dict = {
+                "name" : title,
+                "url" : url
+            }
+            recipe_response.append(recipe_dict)
+
+        
+
+
+        return jsonify(recipe_response), 200
+
+
+
 # path = "https://us1.locationiq.com/v1/search.php"
 
 # LOCATIONIQ_API_KEY = "...ec6a8368a..."
