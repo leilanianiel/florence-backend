@@ -61,7 +61,7 @@ def create_item():
     return jsonify(item), 201
 
 
-# GET, UPDATE, DELETE 1 SPECIIC ITEM (not working yet)
+# GET, UPDATE, DELETE 1 SPECIIC ITEM 
 @item_bp.route("/<id>", methods=['GET', 'PATCH', 'DELETE'], strict_slashes=False)
 def handle_item(id):
     item = Item.query.get(id)
@@ -89,19 +89,6 @@ def handle_item(id):
         }, 200)
 
 
-# # Decrease inventory count 
-# @item_bp.route("/<id>/decrease_count", methods=['POST'])
-# @login_required
-# def decrease_count(id):
-
-    
-#     item = Item.query.get(id)
-
-#     item.count -= 1
-#     db.session.add(item)
-#     db.session.commit()
-
-    return make_response({"New item count": item.count}, 200)
 
 
 # Decrease inventory count 

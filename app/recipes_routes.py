@@ -65,12 +65,12 @@ def get_recipes():
         for name in productNames.keys():
             ingredientList += name + ","
 
-        r = requests.get(url='https://api.spoonacular.com/recipes/findByIngredients', params={
+        response = requests.get(url='https://api.spoonacular.com/recipes/findByIngredients', params={
             "ingredients": ingredientList,
             "apiKey": app.config["SPOONACULAR"], "number": 2})
-        print(r)
+        print(response)
         # extracting data in json format
-        data = r.json()
+        data = response.json()
         return json.dumps(data), 200
 # path = "https://us1.locationiq.com/v1/search.php"
 

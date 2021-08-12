@@ -7,17 +7,6 @@ import datetime
 from flask_login import login_required
 
 product_bp = Blueprint("product", __name__, url_prefix="/product")
-recipes_bp = Blueprint("item", __name__, url_prefix="/item")
-
-# GET ALL PRODUCTS
-@recipes_bp.route("", methods=["GET"], strict_slashes=False)
-
-# Get request from Spoonacular 
-@login_required
-def get_recipes():
-    products = Product.query.all()
-    #HOW DO WE CALL THIS API USING ARE CURENT PRODUCT LIST 
-    return jsonify(products)
 
 
 # GET ALL PRODUCTS
@@ -64,7 +53,7 @@ def create_product():
     return jsonify(product), 201
 
 
-# GET, UPDATE, DELETE 1 SPECIIC PRODUCT (not working yet)
+# GET, UPDATE, DELETE 1 SPECIIC PRODUCT 
 @product_bp.route("/<id>", methods=['GET', 'PATCH', 'DELETE'], strict_slashes=False)
 def handle_product(id):
     product = Product.query.get(id)
@@ -78,7 +67,7 @@ def handle_product(id):
             return jsonify({"details": "Invalid data"}), 400
 
         product.name = request_body["name"]
-        product.product_inventory = request_body["category_id"]
+        product.category_id = request_body["category_id"]
 
         db.session.commit()
         return jsonify(product), 201
@@ -90,6 +79,3 @@ def handle_product(id):
             "Deleted": product.name,
             "id": product.id
         }, 200)
-
-
-
