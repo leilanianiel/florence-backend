@@ -61,7 +61,7 @@ def create_item():
     return jsonify(item), 201
 
 
-# GET, UPDATE, DELETE 1 SPECIIC ITEM (not working yet)
+# GET, UPDATE, DELETE 1 SPECIIC ITEM 
 @item_bp.route("/<id>", methods=['GET', 'PATCH', 'DELETE'], strict_slashes=False)
 def handle_item(id):
     item = Item.query.get(id)

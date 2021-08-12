@@ -53,7 +53,7 @@ def create_product():
     return jsonify(product), 201
 
 
-# GET, UPDATE, DELETE 1 SPECIIC PRODUCT (not working yet)
+# GET, UPDATE, DELETE 1 SPECIIC PRODUCT 
 @product_bp.route("/<id>", methods=['GET', 'PATCH', 'DELETE'], strict_slashes=False)
 def handle_product(id):
     product = Product.query.get(id)
@@ -67,7 +67,7 @@ def handle_product(id):
             return jsonify({"details": "Invalid data"}), 400
 
         product.name = request_body["name"]
-        product.product_inventory = request_body["category_id"]
+        product.category_id = request_body["category_id"]
 
         db.session.commit()
         return jsonify(product), 201
