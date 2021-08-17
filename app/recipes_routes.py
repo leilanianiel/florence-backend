@@ -96,7 +96,7 @@ def get_recipes():
 
         response = requests.get(url='https://api.spoonacular.com/recipes/findByIngredients', params={
             "ingredients": ingredientList,
-            "apiKey": app.config["SPOONACULAR"], "number": 2})
+            "apiKey": app.config["SPOONACULAR"], "number": 3})
         print(response)
         # extracting data in json format
         data = response.json()
