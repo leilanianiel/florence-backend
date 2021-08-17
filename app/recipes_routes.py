@@ -110,7 +110,9 @@ def get_recipes():
 
             recipe_dict = {
                 "name" : title,
-                "url" : url
+                "url" : url,
+                "image" : image,
+                
             }
             recipe_response.append(recipe_dict)
 
