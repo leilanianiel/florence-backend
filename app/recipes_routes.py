@@ -106,6 +106,7 @@ def get_recipes():
         for recipe in data:
             recipe_id = recipe['id']
             title = recipe['title']
+            image = recipe['image']
             url = get_recipe_url(recipe_id)
 
             recipe_dict = {
