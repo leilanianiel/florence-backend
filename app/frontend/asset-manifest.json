@@ -1,24 +1,29 @@
 {
   "files": {
-    "main.css": "/static/css/main.eb6721e3.chunk.css",
-    "main.js": "/static/js/main.b479805f.chunk.js",
-    "main.js.map": "/static/js/main.b479805f.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.46efb4bc.js",
-    "runtime-main.js.map": "/static/js/runtime-main.46efb4bc.js.map",
-    "static/js/2.6e3c2c99.chunk.js": "/static/js/2.6e3c2c99.chunk.js",
-    "static/js/2.6e3c2c99.chunk.js.map": "/static/js/2.6e3c2c99.chunk.js.map",
-    "static/js/3.089fde91.chunk.js": "/static/js/3.089fde91.chunk.js",
-    "static/js/3.089fde91.chunk.js.map": "/static/js/3.089fde91.chunk.js.map",
+    "main.css": "/static/css/main.05d1303a.chunk.css",
+    "main.js": "/static/js/main.4dd57abd.chunk.js",
+    "main.js.map": "/static/js/main.4dd57abd.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.84b70a4b.js",
+    "runtime-main.js.map": "/static/js/runtime-main.84b70a4b.js.map",
+    "static/css/2.fe708519.chunk.css": "/static/css/2.fe708519.chunk.css",
+    "static/js/2.979fc8cd.chunk.js": "/static/js/2.979fc8cd.chunk.js",
+    "static/js/2.979fc8cd.chunk.js.map": "/static/js/2.979fc8cd.chunk.js.map",
+    "static/js/3.0975335f.chunk.js": "/static/js/3.0975335f.chunk.js",
+    "static/js/3.0975335f.chunk.js.map": "/static/js/3.0975335f.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.eb6721e3.chunk.css.map": "/static/css/main.eb6721e3.chunk.css.map",
-    "static/js/2.6e3c2c99.chunk.js.LICENSE.txt": "/static/js/2.6e3c2c99.chunk.js.LICENSE.txt",
+    "static/css/2.fe708519.chunk.css.map": "/static/css/2.fe708519.chunk.css.map",
+    "static/css/main.05d1303a.chunk.css.map": "/static/css/main.05d1303a.chunk.css.map",
+    "static/js/2.979fc8cd.chunk.js.LICENSE.txt": "/static/js/2.979fc8cd.chunk.js.LICENSE.txt",
     "static/media/About Florence.1e02f1e5.png": "/static/media/About Florence.1e02f1e5.png",
-    "static/media/Home Page.dde287f3.png": "/static/media/Home Page.dde287f3.png"
+    "static/media/Copy of Copy of Florence.b31350a6.png": "/static/media/Copy of Copy of Florence.b31350a6.png",
+    "static/media/Copy of Florence (9).721f04aa.png": "/static/media/Copy of Florence (9).721f04aa.png",
+    "static/media/Home.css": "/static/media/background.46e6f05b.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.46efb4bc.js",
-    "static/js/2.6e3c2c99.chunk.js",
-    "static/css/main.eb6721e3.chunk.css",
-    "static/js/main.b479805f.chunk.js"
+    "static/js/runtime-main.84b70a4b.js",
+    "static/css/2.fe708519.chunk.css",
+    "static/js/2.979fc8cd.chunk.js",
+    "static/css/main.05d1303a.chunk.css",
+    "static/js/main.4dd57abd.chunk.js"
   ]
 }
