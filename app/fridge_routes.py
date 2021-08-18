@@ -57,3 +57,6 @@ def handle_fridge(id):
 
         "id": fridge.id
     }, 200)
+
+
+
