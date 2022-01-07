@@ -18,7 +18,7 @@ Youtube Demo: https://www.youtube.com/watch?v=YpAWDAG0Gtk
 
 * OAuth secure Login.
 * Create and store food items.
-* Recieve expiration notification.
+* Recieve alert notification when food close to expiration.
 * Sorted by catergories.
 * Recipe API "Spoonacular"
 * Barcode Scanner "quaggaJS" 
@@ -28,14 +28,13 @@ Youtube Demo: https://www.youtube.com/watch?v=YpAWDAG0Gtk
 
 Florence Fridge App relies on:
 ```bash
-  - react 
+  - React 
   - axios
   - Google OAuth
   - Flask
   - Yarn
   - Material-ui
   - SQLAlchemy
-  - React
   - QuaggasJS
   - reportWebVitals
   - moment
